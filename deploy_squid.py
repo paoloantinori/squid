@@ -39,7 +39,6 @@ def main():
     arbitrary_squid_directives = os.getenv("SQUID_DIRECTIVES", None)
 
     squid_conf_entries = []
-    squid_conf_entries.append('http_port 3129 intercept')
     squid_conf_entries.append('maximum_object_size %s MB' % max_object_size)
     squid_conf_entries.append('cache_dir ufs /var/cache/squid3 %s 16 256' %
                               disk_cache_size)
@@ -58,7 +57,9 @@ def main():
     # Setup squid directories
     # Reassert permissions in case of mounting from outside
     subprocess.check_call(prepare_cache_cmd, shell=True)
-    subprocess.check_call(build_cmd, shell=True)
+
+    if not os.path.isfile('/var/cache/squid3/00') :
+        subprocess.check_call(build_cmd, shell=True)
 
     # wait for the above non-blockin call to finish setting up the directories
     time.sleep(5)
