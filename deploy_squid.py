@@ -28,7 +28,7 @@ import sys
 import time
 
 prepare_cache_cmd = "chmod a+rwX /var/cache/squid3 && setfacl -m d:proxy:rwX /var/cache/squid3"
-build_cmd = "squid3 -N -z"
+build_cmd = "squid3 -F -z"
 squid_cmd = "squid3 -NFCd1"
 
 
