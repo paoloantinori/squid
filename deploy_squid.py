@@ -27,7 +27,7 @@ import socket
 import sys
 import time
 
-prepare_cache_cmd = "chmod a+rwX -R /var/cache/squid3"
+prepare_cache_cmd = "chmod a+rwX /var/cache/squid3"
 build_cmd = "squid3 -z"
 squid_cmd = "squid3 -NFCd1"
 
