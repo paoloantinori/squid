@@ -27,8 +27,7 @@ import socket
 import sys
 import time
 
-prepare_cache_cmd = "chmod a+rwX /var/cache/squid3 && setfacl -m d:proxy:rwX /var/cache/squid3"
-build_cmd = "squid3 -F -z"
+prepare_cache_cmd = "setfacl -m u:proxy:rwX /var/cache/squid3 && setfacl -m d:u:proxy:rwX /var/cache/squid3 && squid3 -FNz"
 squid_cmd = "squid3 -NFCd1"
 
 
@@ -58,11 +57,9 @@ def main():
     # Reassert permissions in case of mounting from outside
     subprocess.check_call(prepare_cache_cmd, shell=True)
 
-    if not os.path.isfile('/var/cache/squid3/00') :
-        subprocess.check_call(build_cmd, shell=True)
-
     # wait for the above non-blockin call to finish setting up the directories
-    time.sleep(5)
+    while not os.path.isfile('/var/cache/squid3/0F/FF') :
+        time.sleep(5)
 
     # Start the squid instance as a subprocess
     squid_in_a_can = subprocess.Popen(squid_cmd, shell=True)
