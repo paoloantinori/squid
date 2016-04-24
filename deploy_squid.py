@@ -40,7 +40,7 @@ def main():
 
     squid_conf_entries = []
     squid_conf_entries.append('maximum_object_size %s MB' % max_object_size)
-    squid_conf_entries.append('cache_dir ufs /var/cache/squid3 %s 16 256' %
+    squid_conf_entries.append('cache_dir aufs /var/cache/squid3 %s 16 256' %
                               disk_cache_size)
 
     write_mode = 'w' if squid_directives_only else 'a'
