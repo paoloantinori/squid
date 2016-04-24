@@ -39,7 +39,7 @@ def main():
 
     squid_conf_entries = []
     squid_conf_entries.append('maximum_object_size %s MB' % max_object_size)
-    squid_conf_entries.append('cache_dir aufs /var/cache/squid3 %s 16 256' %
+    squid_conf_entries.append('cache_dir aufs /var/cache/squid3 %s 16 16' %
                               disk_cache_size)
 
     write_mode = 'w' if squid_directives_only else 'a'
@@ -58,7 +58,7 @@ def main():
     subprocess.check_call(prepare_cache_cmd, shell=True)
 
     # wait for the above non-blockin call to finish setting up the directories
-    while not os.path.isfile('/var/cache/squid3/0F/FF') :
+    while not os.path.isfile('/var/cache/squid3/0F/0F') :
         time.sleep(5)
 
     # Start the squid instance as a subprocess
