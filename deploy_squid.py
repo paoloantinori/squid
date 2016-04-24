@@ -58,7 +58,7 @@ def main():
     subprocess.check_call(prepare_cache_cmd, shell=True)
 
     # wait for the above non-blockin call to finish setting up the directories
-    while not os.path.isfile('/var/cache/squid3/0F/0F') :
+    while not os.path.isdir('/var/cache/squid3/0F/0F') :
         time.sleep(5)
 
     # Start the squid instance as a subprocess
